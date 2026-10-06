@@ -7,9 +7,11 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { createParticipantSchema, participantIdSchema, participantListQuerySchema, updateParticipantSchema } from '../validators/participant.validator.js';
 
 const router = Router();
-router.use(authenticate, authorize('admin'));
-router.post('/', validate({ body: createParticipantSchema }), asyncHandler(controller.create));
+router.use(authenticate);
+// Staff need a read-only participant directory to create event registrations.
 router.get('/', validate({ query: participantListQuerySchema }), asyncHandler(controller.list));
+router.use(authorize('admin'));
+router.post('/', validate({ body: createParticipantSchema }), asyncHandler(controller.create));
 router.get('/:id', validate({ params: participantIdSchema }), asyncHandler(controller.getById));
 router.put('/:id', validate({ params: participantIdSchema, body: updateParticipantSchema }), asyncHandler(controller.update));
 router.delete('/:id', validate({ params: participantIdSchema }), asyncHandler(controller.remove));
