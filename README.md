@@ -36,6 +36,22 @@ EventHub is a PERN back-office application for managing events, participants, re
 
 Open the address shown by Vite, normally `http://localhost:5173`.
 
+## Docker Compose
+
+With Docker Desktop running, start the full stack (PostgreSQL, backend, and frontend) from the project root:
+
+```bash
+docker compose up --build -d
+```
+
+The frontend is available at `http://localhost:5173`; the API is available at `http://localhost:5000/api`. The backend automatically applies migrations. Load the demo data once after the stack is running:
+
+```bash
+docker compose exec backend npm run seed
+```
+
+To stop the stack, run `docker compose down`. Database data is kept in the `eventhub_postgres_data` Docker volume. To remove that data for a completely fresh database, run `docker compose down -v`.
+
 ## Demo accounts
 
 | Role | Email | Password |
