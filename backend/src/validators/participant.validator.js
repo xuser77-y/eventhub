@@ -3,7 +3,7 @@ import { z } from 'zod';
 const fields = {
   fullName: z.string().trim().min(1).max(150),
   email: z.string().trim().toLowerCase().email().max(255),
-  phone: z.string().trim().min(1).max(30).nullable()
+  phone: z.string().trim().min(1).max(30).nullable().optional()
 };
 
 export const createParticipantSchema = z.object(fields);
