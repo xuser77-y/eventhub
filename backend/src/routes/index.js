@@ -4,6 +4,8 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { router as authRouter } from './auth.routes.js';
 import { router as eventsRouter } from './events.routes.js';
 import { router as participantsRouter } from './participants.routes.js';
+import { router as registrationsRouter } from './registrations.routes.js';
+import { router as dashboardRouter } from './dashboard.routes.js';
 
 const router = Router();
 
@@ -15,5 +17,7 @@ router.get('/health', asyncHandler(async (request, response) => {
 router.use('/auth', authRouter);
 router.use('/events', eventsRouter);
 router.use('/participants', participantsRouter);
+router.use('/registrations', registrationsRouter);
+router.use('/dashboard', dashboardRouter);
 
 export { router };

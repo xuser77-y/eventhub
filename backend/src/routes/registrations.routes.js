@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import * as controller from '../controllers/registration.controller.js';
+import { authenticate } from '../middlewares/authenticate.js';
+import { validate } from '../middlewares/validate.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { createRegistrationSchema, registrationIdSchema, registrationListQuerySchema, registrationStatusSchema } from '../validators/registration.validator.js';
+const router = Router(); router.use(authenticate);
+router.post('/', validate({ body: createRegistrationSchema }), asyncHandler(controller.create));
+router.get('/', validate({ query: registrationListQuerySchema }), asyncHandler(controller.list));
+router.patch('/:id/status', validate({ params: registrationIdSchema, body: registrationStatusSchema }), asyncHandler(controller.updateStatus));
+export { router };
