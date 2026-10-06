@@ -3,6 +3,7 @@ import { query } from '../config/db.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { router as authRouter } from './auth.routes.js';
 import { router as eventsRouter } from './events.routes.js';
+import { router as participantsRouter } from './participants.routes.js';
 
 const router = Router();
 
@@ -13,5 +14,6 @@ router.get('/health', asyncHandler(async (request, response) => {
 
 router.use('/auth', authRouter);
 router.use('/events', eventsRouter);
+router.use('/participants', participantsRouter);
 
 export { router };
