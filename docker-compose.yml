@@ -23,7 +23,7 @@ services:
       JWT_EXPIRES_IN: 2h
       BCRYPT_ROUNDS: 12
       CORS_ORIGIN: http://localhost:5173
-    command: sh -c "npm run migrate && npm start"
+    command: sh -c "npm run migrate && npm run seed && npm start"
     depends_on:
       db:
         condition: service_healthy

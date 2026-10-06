@@ -44,11 +44,7 @@ With Docker Desktop running, start the full stack (PostgreSQL, backend, and fron
 docker compose up --build -d
 ```
 
-The frontend is available at `http://localhost:5173`; the API is available at `http://localhost:5000/api`. The backend automatically applies migrations. Load the demo data once after the stack is running:
-
-```bash
-docker compose exec backend npm run seed
-```
+The frontend is available at `http://localhost:5173`; the API is available at `http://localhost:5000/api`. The backend automatically applies migrations and loads the demo data, so the documented admin and staff accounts are ready as soon as the stack starts. This Docker setup is intended for the demo: each backend restart resets the EventHub data to the clean seeded dataset.
 
 To stop the stack, run `docker compose down`. Database data is kept in the `eventhub_postgres_data` Docker volume. To remove that data for a completely fresh database, run `docker compose down -v`.
 
