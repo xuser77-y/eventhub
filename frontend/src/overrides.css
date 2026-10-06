@@ -1,1 +1,2 @@
 .notice.success { background: #ebf5f0; color: #2e7d5b; }
+.notice { position: fixed; top: 20px; right: 20px; z-index: 100; min-width: 280px; box-shadow: 0 12px 28px rgba(27,27,31,.16); }

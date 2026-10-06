@@ -7,9 +7,10 @@ async function api(path, token, options = {}) { const response = await fetch(bas
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('eventhub_token'));
-  const [page, setPage] = useState('dashboard'); const [data, setData] = useState({}); const [message, setMessage] = useState('');
+  const [page, setPage] = useState('dashboard'); const [data, setData] = useState({}); const [message, setMessage] = useState(''); const [confirmation, setConfirmation] = useState(null);
   const load = async () => { if (!token) return; try { const [me, dashboard, events, participants, registrations] = await Promise.all([api('/auth/me', token), api('/dashboard', token), api('/events', token), api('/participants', token), api('/registrations', token)]); setData({ user: me.user, dashboard, events: events.events, participants: participants.participants, registrations: registrations.registrations }); } catch (error) { setMessage(error.message); setToken(null); localStorage.removeItem('eventhub_token'); } };
   useEffect(() => { load(); }, [token]);
+  useEffect(() => { if (!message) return; const timer = setTimeout(() => setMessage(''), 3500); return () => clearTimeout(timer); }, [message]);
   if (!token) return <Login onLogin={async (email, password) => { const result = await api('/auth/login', null, { method: 'POST', body: JSON.stringify({ email, password }) }); localStorage.setItem('eventhub_token', result.token); setToken(result.token); }} message={message} />;
   const submit = async (event, path) => { event.preventDefault(); const form = event.currentTarget; const values = Object.fromEntries(new FormData(form)); if (values.maxParticipants) values.maxParticipants = Number(values.maxParticipants); if (values.eventDate) values.eventDate = new Date(values.eventDate).toISOString(); if (values.phone === '') values.phone = null; try { await api(path, token, { method: 'POST', body: JSON.stringify(values) }); setMessage('Saved successfully.'); form.reset(); load(); } catch (error) { setMessage(error.message); } };
   const action = async (path, method = 'PATCH', body) => { try { await api(path, token, { method, ...(body && { body: JSON.stringify(body) }) }); setMessage('Updated successfully.'); load(); } catch (error) { setMessage(error.message); } };
