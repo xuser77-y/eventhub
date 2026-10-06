@@ -19,7 +19,7 @@ export function errorHandler(error, request, response, next) {
     error: {
       code,
       message,
-      ...(error.details ? { details: error.details } : {})
+      ...(error.details !== undefined ? { details: error.details } : {})
     }
   });
 }
