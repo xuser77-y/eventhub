@@ -6,6 +6,7 @@ import { router as eventsRouter } from './events.routes.js';
 import { router as participantsRouter } from './participants.routes.js';
 import { router as registrationsRouter } from './registrations.routes.js';
 import { router as dashboardRouter } from './dashboard.routes.js';
+import { router as usersRouter } from './users.routes.js';
 
 const router = Router();
 
@@ -19,5 +20,6 @@ router.use('/events', eventsRouter);
 router.use('/participants', participantsRouter);
 router.use('/registrations', registrationsRouter);
 router.use('/dashboard', dashboardRouter);
+router.use('/users', usersRouter);
 
 export { router };
